@@ -6,7 +6,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
-#ifdef _DEBUG
+#ifdef QT_DEBUG
 const int POMODORO_INTERVAL = 2;
 #else
 const int POMODORO_INTERVAL = 25;
