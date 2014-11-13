@@ -2,6 +2,8 @@
 #include <QApplication>
 #include "qwidlcdclock.h"
 
+const int POMODORO_INTERVAL = 25;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -12,7 +14,7 @@ int main(int argc, char *argv[])
 
     QWidget *centralWidget = new QWidget(w);
 
-    QWidLCDClock *pomodoroTimer = new QWidLCDClock(centralWidget, 1, 0);
+    QWidLCDClock *pomodoroTimer = new QWidLCDClock(centralWidget, POMODORO_INTERVAL, 0);
     pomodoroTimer->setFixedSize(245, 245);
 
     w->setCentralWidget(centralWidget);
