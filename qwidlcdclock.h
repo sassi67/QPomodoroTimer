@@ -17,6 +17,7 @@ public:
         display(m_TimeDisplay->toString());
         connect(m_Timer, SIGNAL(timeout()), this, SLOT(ShowTime()));
         connect(this, SIGNAL(TimeElapsed()), this, SLOT(StopTimer()));
+        m_Started = false;
     }
     ~QWidLCDClock()
     {
@@ -24,16 +25,23 @@ public:
         delete m_Timer;
     }
 
-    void StartTimer()
-    {
-        m_Timer->start(1000);
-    }
-
 private:
     QTimer  *m_Timer;
     QTime   *m_TimeDisplay;
+    bool    m_Started;
 signals:
     void TimeElapsed();
+public slots:
+    void StartStopTimer()
+    {
+        m_Started = !m_Started;
+
+        if (m_Started)
+            StartTimer();
+        else
+            StopTimer();
+    }
+
 private slots:
     void ShowTime()
     {
@@ -44,6 +52,12 @@ private slots:
         if (m_TimeDisplay->minute() == 0 && m_TimeDisplay->second() == 0)
             emit TimeElapsed();
     }
+
+    void StartTimer()
+    {
+        m_Timer->start(1000);
+    }
+
     void StopTimer()
     {
         m_Timer->stop();
